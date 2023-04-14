@@ -1,0 +1,55 @@
+/* Estilos para el formulario de registro */
+.container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #f0fff0;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login a {
+    color: #27ae60;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}

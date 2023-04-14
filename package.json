@@ -1,0 +1,22 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "minimist": "^1.2.8",
+    "mongoose": "^7.0.3",
+    "path": "^0.12.7"
+  },
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
