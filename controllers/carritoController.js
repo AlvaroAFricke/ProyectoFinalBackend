@@ -3,7 +3,6 @@ export default class CarritosController {
     constructor() {}
 
     crearCarrito(req, res) {
-        // Lógica para manejar la creación de un carrito
         res.send('Crear carrito');
     }
 

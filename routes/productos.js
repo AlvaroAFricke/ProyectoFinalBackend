@@ -1,7 +1,7 @@
 import express from 'express';
 import ProductosController from '../controllers/productoContorller.js';
 
-export default class Routes {
+export default class ProductosRoutes {
   constructor() {
     // Crear una instancia del enrutador de Express
     this.router = express.Router();

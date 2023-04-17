@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mi Sitio Web</title>
-    <style>
-        /* Estilos para el header */
-        header {
-            background-color: #27ae60;
-            color: #fff;
-            padding: 20px;
-        }
-
-        /* Estilos para los enlaces de navegación */
-        header a {
-            color: #fff;
-            margin-right: 10px;
-            text-decoration: none;
-        }
-
-        /* Estilos para el contenido */
-        main {
-            margin: 20px;
-        }
-    </style>
+  <title>Lista de Productos</title>
 </head>
 <body>
-    <header>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/carrito">Carrito</a>
-        <a href="/contacto">Contacto</a>
-        <a href="/logout">LogOut</a>
-    </header>
-    <main>
-        <!-- Aquí va el contenido de la página -->
-        <h1>Bienvenido a mi sitio web</h1>
-        <p>¡Gracias por visitarnos!</p>
-    </main>
+  <h1>Lista de Productos</h1>
+  <ul>
+    <% if (!productos || productos.length === 0) { %>
+      <li>No hay productos disponibles</li>
+    <% } else { %>
+      <% productos.forEach(function(producto) { %>
+        <li>
+          <h3><%= producto.nombre %></h3>
+          <p>Descripción: <%= producto.descripcion %></p>
+          <p>Código: <%= producto.codigo %></p>
+          <p>Imagen: <%= producto.imagen %></p>
+          <p>Precio: <%= producto.precio %></p>
+          <p>Stock: <%= producto.stock %></p>
+        </li>
+      <% }); %>
+    <% } %>
+  </ul>
 </body>
 </html>

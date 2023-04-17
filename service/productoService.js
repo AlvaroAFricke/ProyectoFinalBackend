@@ -55,14 +55,12 @@ export default class ProductoService {
     }
   }
 
-  async eliminarProducto(id) {
+  async eliminarProductos() {
     try {
-      // Lógica para eliminar un producto por ID
-      
-      const productoEliminado = await this.productoDAO.delete(id);
-      return productoEliminado;
+      const productosEliminado = await this.productoDAO.delete();
+      return productosEliminado;
     } catch (error) {
-      console.error(`Error al eliminar el producto con ID ${id}:`, error);
+      console.error('Error al eliminar el producto. ', error);
       throw error;
     }
   }

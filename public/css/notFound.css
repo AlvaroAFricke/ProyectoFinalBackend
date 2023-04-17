@@ -1,0 +1,18 @@
+/* notFound.css */
+
+body {
+  background-color: #27ae60; /* Establece el color de fondo a verde */
+  font-family: Arial, sans-serif;
+  color: #fff; /* Establece el color de texto a blanco */
+  text-align: center; /* Centra el contenido en el centro de la página */
+  padding: 30px; /* Añade espacio de relleno para el contenido */
+}
+
+h1 {
+  font-size: 36px; /* Establece el tamaño de fuente del título a 36px */
+}
+
+p {
+  font-size: 18px; /* Establece el tamaño de fuente del párrafo a 18px */
+}
+

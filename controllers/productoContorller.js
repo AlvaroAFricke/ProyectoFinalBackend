@@ -1,15 +1,19 @@
+import ProductoService from "../service/productoService.js";
+
+const prodService = new ProductoService()
+
 export default class ProductosRoutes {
    
     constructor() {}
 
-    obtenerProductos(req, res) {
-        const { id } = req.params;
+    async obtenerProductos(req, res) {
+        const id = req.params.id;
         if (id) {
-            // Lógica para manejar la ruta con ID
-            res.send(`Obtener recurso con ID: ${id}`);
+            const producto = await prodService.obtenerProductoPorId(id)
+            res.render('index', { productos : [producto] }); // Renderizar la vista y pasar los datos
         } else {
-            // Lógica para manejar la ruta sin ID
-            res.send('Obtener todos los recursos');
+            const productos = await prodService.obtenerProductos()  
+            res.render('index', { productos }); // Renderizar la vista y pasar los datos
         }
     }
 
@@ -27,14 +31,15 @@ export default class ProductosRoutes {
     }
 
     // Función para manejar la ruta DELETE
-    borrarProdutos(req, res) {
+    async borrarProdutos(req, res) {
         const { id } = req.params;
         if (id) {
-            // Lógica para manejar la eliminación de un recurso con ID
-            res.send(`Eliminar recurso con ID: ${id}`);
+            await prodService.eliminarProductoPorId(id)
+            const productos = await prodService.obtenerProductos()
+            res.render('index', { productos }); // Renderizar la vista y pasar los datos
         } else {
-            // Lógica para manejar la eliminación de todos los recursos
-            res.send('Eliminar todos los recursos');
+            const productos = await prodService.eliminarProductos()
+            res.render('index', {productos: productos})
         }
     }
 

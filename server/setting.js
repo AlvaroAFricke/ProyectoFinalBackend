@@ -5,6 +5,7 @@ import Args from '../utils/args.js';
 
 import ProductosRoutes from '../routes/productos.js';
 import CarritosRoutes from '../routes/carritos.js';
+import NotFound from '../routes/notFound.js'
 
 
 // Cargar variables de entorno desde el archivo .env
@@ -34,6 +35,9 @@ export default class Server {
     const carritosRoutes = new CarritosRoutes();
     this.app.use('/api/carrito', carritosRoutes.router);
 
+    const notFound = new NotFound();
+    this.app.use(notFound.router)
+
     // this.app.get('/', (req, res) => {
     //   res.send('Hola, mundo!');
     // });
@@ -42,10 +46,9 @@ export default class Server {
     // });
 
 
-
     // Configurar el motor de plantillas EJS
     this.app.set('view engine', 'ejs');
-    this.app.set('views', new URL('./views', import.meta.url).pathname);
+    this.app.set('views', new URL('../views', import.meta.url).pathname);
 
   }
 
