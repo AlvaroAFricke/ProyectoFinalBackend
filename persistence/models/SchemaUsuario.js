@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const usuarioSchema = new mongoose.Schema({
+    // Campos del modelo de usuario
     username: {
         type: String,
         required: true
@@ -29,3 +31,4 @@ const usuarioSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Usuario', usuarioSchema);
+

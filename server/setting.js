@@ -1,12 +1,16 @@
-// Importar los módulos necesarios
+// Imports
 import express from 'express';
+import { initPassport } from '../controllers/authController.js';
+
+//Variables externas
 import dotenv from 'dotenv';
 import Args from '../utils/args.js';
 
+//Rutas
 import ProductosRoutes from '../routes/productos.js';
 import CarritosRoutes from '../routes/carritos.js';
+import LoggueoRoutes from '../routes/loggeo.js'
 import NotFound from '../routes/notFound.js'
-
 
 // Cargar variables de entorno desde el archivo .env
 dotenv.config();
@@ -17,13 +21,17 @@ export default class Server {
     this.app = express();
     this.port = new Args().getPort() || process.env.PORT || 8080;
     this.setupMiddlewares();
-    this.setupRoutes();
+    this.setupRoutes()
   }
 
   setupMiddlewares() {
     // Configurar middlewares:
-    // this.app.use(express.json());
-    // this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(express.json()); // Para analizar datos del cuerpo en formato JSON
+    this.app.use(express.urlencoded({ extended: true })); // Para analizar datos del cuerpo en formato de formulario
+
+    const passConf = new initPassport();
+    passConf.setConfig(this.app);
+
   }
 
   setupRoutes() {
@@ -35,16 +43,11 @@ export default class Server {
     const carritosRoutes = new CarritosRoutes();
     this.app.use('/api/carrito', carritosRoutes.router);
 
+    const loggsRoutes = new LoggueoRoutes();
+    this.app.use('/', loggsRoutes.router)
+
     const notFound = new NotFound();
     this.app.use(notFound.router)
-
-    // this.app.get('/', (req, res) => {
-    //   res.send('Hola, mundo!');
-    // });
-    // this.app.post('/api/usuarios', (req, res) => {
-    //   // Manejar la lógica de la ruta aquí
-    // });
-
 
     // Configurar el motor de plantillas EJS
     this.app.set('view engine', 'ejs');

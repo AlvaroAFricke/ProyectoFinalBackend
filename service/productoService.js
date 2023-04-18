@@ -35,8 +35,8 @@ export default class ProductoService {
     try {
       // Lógica para guardar un producto
       const productoGuardado = await this.productoDAO.save(productoData);
-      
       return productoGuardado;
+      
     } catch (error) {
       console.error('Error al guardar el producto:', error);
       throw error;

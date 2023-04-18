@@ -6,7 +6,7 @@ export default class Routes {
     this.router = express.Router();
     //Rutas
     this.router.get('/*', (req, res) => {
-        res.render('notFound');
+        res.render('./404/notFound');
     });
   }
 }

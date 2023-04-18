@@ -30,13 +30,13 @@ export default class UsuariosMongo {
     }
   }
 
-  async getByUsername(username) {
+  async getByEmail(email) {
     try {
       // Obtener un usuario por su ID
-      const usuario = await Usuario.find({username: username});
+      const usuario = await Usuario.find({email: email});
       return usuario;
     } catch (error) {
-      throw new Error(`Error al obtener el usuario por ID: ${error}`);
+      throw new Error(`Error al obtener el usuario por Email: ${error}`);
     }
   }
 
@@ -71,3 +71,4 @@ export default class UsuariosMongo {
     }
   }
 }
+

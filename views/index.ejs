@@ -4,6 +4,7 @@
   <title>Lista de Productos</title>
 </head>
 <body>
+  <a href="forms/formActualizarProd.ejs">Crear</a>
   <h1>Lista de Productos</h1>
   <ul>
     <% if (!productos || productos.length === 0) { %>
@@ -17,9 +18,14 @@
           <p>Imagen: <%= producto.imagen %></p>
           <p>Precio: <%= producto.precio %></p>
           <p>Stock: <%= producto.stock %></p>
+          <form method="post" action="/productos/<%= producto._id %>">
+            <input type="submit" value="Añadir" name="accion">
+            <input type="submit" value="Borrar" name="accion">
+          </form>
         </li>
       <% }); %>
     <% } %>
   </ul>
 </body>
 </html>
+

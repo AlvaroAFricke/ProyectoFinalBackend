@@ -3,31 +3,87 @@ import ProductoService from "../service/productoService.js";
 const prodService = new ProductoService()
 
 export default class ProductosRoutes {
-   
-    constructor() {}
+
+    constructor() { }
 
     async obtenerProductos(req, res) {
         const id = req.params.id;
         if (id) {
             const producto = await prodService.obtenerProductoPorId(id)
-            res.render('index', { productos : [producto] }); // Renderizar la vista y pasar los datos
+            res.render('index', { productos: [producto] }); // Renderizar la vista y pasar los datos
         } else {
-            const productos = await prodService.obtenerProductos()  
+            const productos = await prodService.obtenerProductos()
             res.render('index', { productos }); // Renderizar la vista y pasar los datos
         }
     }
 
-    // Función para manejar la ruta POST
-    guardarProducto(req, res) {
-        // Lógica para manejar la creación de un recurso
-        res.send('Crear recurso');
-    }
+    // Controlador para guardar un nuevo producto
+    async guardarProducto(req, res) {
+        try {
+
+            const { nombre, descripcion, codigo, imagen, precio, stock } = req.body;
+
+            // Crea una nueva instancia del modelo Producto con los datos del cuerpo de la solicitud
+            const nuevoProducto = {
+                nombre,
+                descripcion,
+                time: new Date(),
+                codigo,
+                imagen,
+                precio,
+                stock
+            };
+
+            await prodService.guardarProducto(nuevoProducto);
+
+            // Envía la respuesta al cliente
+            res.redirect('/api/productos');
+
+        } catch (error) {
+            // Manejo de errores
+            console.error('Error al registrar el producto:', error);
+            res.status(500).json({
+                mensaje: 'Error al registrar el producto',
+                error: error.message
+            });
+        }
+    };
+
 
     // Función para manejar la ruta PUT
-    actualizarProducto(req, res) {
-        const { id } = req.params;
-        // Lógica para manejar la actualización de un recurso con ID
-        res.send(`Actualizar recurso con ID: ${id}`);
+    async actualizarProducto(req, res) {
+
+        /**Revisar */
+        
+        try {
+
+            const { id } = req.params
+
+            const { nombre, descripcion, codigo, imagen, precio, stock } = req.body;
+
+            const actualizado = {
+                nombre,
+                descripcion,
+                time: new Date(),
+                codigo,
+                imagen,
+                precio,
+                stock
+            };
+
+            await prodService.actualizarProducto(id, actualizado);
+
+            // Envía la respuesta al cliente
+            res.redirect('/api/productos');
+
+        } catch (error) {
+            // Manejo de errores
+            console.error('Error al registrar el producto:', error);
+            res.status(500).json({
+                mensaje: 'Error al registrar el producto',
+                error: error.message
+            });
+        }
     }
 
     // Función para manejar la ruta DELETE
@@ -39,7 +95,7 @@ export default class ProductosRoutes {
             res.render('index', { productos }); // Renderizar la vista y pasar los datos
         } else {
             const productos = await prodService.eliminarProductos()
-            res.render('index', {productos: productos})
+            res.render('index', { productos: productos })
         }
     }
 

@@ -43,7 +43,15 @@ export default class ProductoMongo {
   async save(productoData) {
     try {
       // Crear un nuevo producto en la base de datos
-      const producto = new Producto(productoData);
+      const producto = new Producto({
+        nombre: productoData.nombre,
+        descripcion: productoData.descripcion,
+        time: productoData.time,
+        codigo: productoData.codigo,
+        imagen: productoData.imagen,
+        precio: productoData.precio,
+        stock: productoData.stock
+      });
       const productoGuardado = await producto.save();
       return productoGuardado;
     } catch (error) {

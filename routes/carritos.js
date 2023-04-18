@@ -1,6 +1,9 @@
 import express from 'express';
 import CarritosController from '../controllers/carritoController.js';
 
+// Importar el middleware de autenticación
+import { isAuthenticated } from './auth/auth.js';
+
 export default class CarritosRoutes {
   constructor() {
     // Crear una instancia del enrutador de Express
@@ -10,11 +13,11 @@ export default class CarritosRoutes {
     this.carritosController = new CarritosController();
 
     //Rutas
-    this.router.post('/', this.carritosController.crearCarrito);
-    this.router.delete('/:id', this.carritosController.borrarCarrito);
-    this.router.get('/:id', this.carritosController.obtenerCarrito);
-    this.router.post('/:id/producto', this.carritosController.agregarProductoAlCarrito);
-    this.router.delete('/:id/producto/:idProd', this.carritosController.borrarProductoDelCarrito);
+    this.router.post('/', isAuthenticated, this.carritosController.crearCarrito);
+    this.router.delete('/:id', isAuthenticated, this.carritosController.borrarCarrito);
+    this.router.get('/:id', isAuthenticated, this.carritosController.obtenerCarrito);
+    this.router.post('/:id/producto', isAuthenticated, this.carritosController.agregarProductoAlCarrito);
+    this.router.delete('/:id/producto/:idProd', isAuthenticated, this.carritosController.borrarProductoDelCarrito);
   }
 
 }
