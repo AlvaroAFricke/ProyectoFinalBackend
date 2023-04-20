@@ -2,6 +2,12 @@ import ProductoService from "../service/productoService.js";
 
 const prodService = new ProductoService()
 
+//Quitar
+import DBUser from '../persistence/dao/mongo/usuariosMongo.js'
+//
+
+const dbUsuarios = new DBUser();
+
 export default class ProductosRoutes {
 
     constructor() { }
@@ -10,10 +16,11 @@ export default class ProductosRoutes {
         const id = req.params.id;
         if (id) {
             const producto = await prodService.obtenerProductoPorId(id)
-            res.render('index', { productos: [producto] }); // Renderizar la vista y pasar los datos
+            res.render('index', {usuario: usuario, productos: [producto] }); // Renderizar la vista y pasar los datos
         } else {
             const productos = await prodService.obtenerProductos()
-            res.render('index', { productos }); // Renderizar la vista y pasar los datos
+            const usuario = await dbUsuarios.getById("6440675c2358525e5c1d9e08")
+            res.render('index', { usuario, productos }); // Renderizar la vista y pasar los datos
         }
     }
 

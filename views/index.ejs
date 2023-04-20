@@ -4,7 +4,8 @@
   <title>Lista de Productos</title>
 </head>
 <body>
-  <a href="forms/formActualizarProd.ejs">Crear</a>
+  <!-- Mostrar saludo al usuario con su nombre -->
+  <h2>Hola, <%= usuario.username %>!</h2>
   <h1>Lista de Productos</h1>
   <ul>
     <% if (!productos || productos.length === 0) { %>
@@ -18,7 +19,7 @@
           <p>Imagen: <%= producto.imagen %></p>
           <p>Precio: <%= producto.precio %></p>
           <p>Stock: <%= producto.stock %></p>
-          <form method="post" action="/productos/<%= producto._id %>">
+          <form method="post" action="/api/carrito/<%= usuario.carrito._id %>/producto/<%= producto._id %>">
             <input type="submit" value="Añadir" name="accion">
             <input type="submit" value="Borrar" name="accion">
           </form>
@@ -26,6 +27,13 @@
       <% }); %>
     <% } %>
   </ul>
+
+    <!-- Botón para ver el carrito -->
+    <form method="get" action="/api/carrito/<%= usuario.carrito._id %>">
+      <input type="submit" value="Ver carrito">
+    </form>
+
 </body>
 </html>
+
 

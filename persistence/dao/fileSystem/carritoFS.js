@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import Carrito from '../../models/Carrito.js';
 
 export default class CarritoFS {
   static ARCHIVO = path.join(
@@ -10,6 +11,13 @@ export default class CarritoFS {
     if (!fs.existsSync(CarritoFS.ARCHIVO) || fs.readFileSync(CarritoFS.ARCHIVO, 'utf-8').length === 0) {
       fs.writeFileSync(CarritoFS.ARCHIVO, '[]', 'utf-8');
     }
+  }
+
+  async create() {
+    const data = await fs.promises.readFile(CarritoFS.ARCHIVO, 'utf-8');
+    const carritos = JSON.parse(data);
+    carritos.push(new Carrito(Math.random ,new Date()));
+    await fs.promises.writeFile(CarritoFS.ARCHIVO, JSON.stringify(carritos), 'utf-8');
   }
 
   async getById(id) {

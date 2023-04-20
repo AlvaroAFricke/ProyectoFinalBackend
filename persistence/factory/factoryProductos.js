@@ -1,22 +1,19 @@
-/**
- * Imports para uso Local
- */
-
 import productoFS from '../dao/fileSystem/productoFS.js'
-
-/**
- * Imports para uso Mongo
-*/
-
 import productosMongo from '../dao/mongo/productosMongo.js'
 
-export default class FactoryProductos {
+class FactoryProductos {
     constructor(data){
+        if (FactoryProductos.instance) {
+            return FactoryProductos.instance;
+        }
         if(data == 'local'){
-            return new productoFS()
+            FactoryProductos.instance = new productoFS();
         }
         if(data == 'mongo'){
-            return new productosMongo()
+            FactoryProductos.instance = new productosMongo();
         }
+        return FactoryProductos.instance;
     }
 }
+
+export default FactoryProductos;

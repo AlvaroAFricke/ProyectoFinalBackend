@@ -4,6 +4,12 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 
+import { v4 as uuidv4 } from 'uuid';
+
+const generateUniqueCode = () => {
+  return uuidv4(); // Generar un UUID v4 único
+};
+
 // Obtención del directorio actual del módulo
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,16 +36,20 @@ export default class CarritoMongo {
     }
   }
 
-  async save(carritoData) {
+  async save() {
     try {
-      // Crear un nuevo carrito en la base de datos
-      const carrito = new Carrito(carritoData);
+      const codigoUnico = generateUniqueCode(); // Generar un código único
+      const carrito = new Carrito({
+        codigo: codigoUnico, // Asignar el código único al campo 'codigo'
+        time: new Date()
+      });
       const carritoGuardado = await carrito.save();
       return carritoGuardado;
     } catch (error) {
       throw new Error(`Error al guardar el carrito: ${error}`);
     }
   }
+
 
   async updateCarrito(id, carritoData) {
     try {
@@ -48,6 +58,17 @@ export default class CarritoMongo {
       return carritoActualizado;
     } catch (error) {
       throw new Error(`Error al actualizar el carrito por ID: ${error}`);
+    }
+  }
+
+  async vaciarCarrito(id) {
+    try {
+      const carrito = await Carrito.findById(id);
+      carrito.productos = [];
+      this.updateCarrito(id, carrito);
+      return carrito;
+    } catch (error) {
+      throw new Error;
     }
   }
 

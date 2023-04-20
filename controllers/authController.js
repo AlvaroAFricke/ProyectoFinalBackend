@@ -7,12 +7,11 @@ import logger from "../utils/logger.js"
 
 import MongoUsuarios from "../persistence/dao/mongo/usuariosMongo.js";
 
-const mailer = new Mailer();
 const baseUsuarios = new MongoUsuarios();
 
-export class initPassport{
-    constructor(){}
-    setConfig(app){
+export class initPassport {
+    constructor() { }
+    setConfig(app) {
         app.use(session({
             secret: 'laappsecretisima',
             resave: false,
@@ -25,37 +24,6 @@ export class initPassport{
         app.use(passport.session())
     }
 }
-
-//----Registro-----//
-passport.use('register', new LocalStrategy({
-    passReqToCallback: true
-}, async (req, email, password, done) => {
-    const { username } = req.body
-    const { direccion } = req.body
-    const { edad } = req.body
-    const { telefono } = req.body
-
-    const usuario = await baseUsuarios.getByEmail(email)
-    if (usuario) {
-        logger.warn("Usuario ya registrado.")
-        return done('el usuario ya esta registrado', false)
-    }
-
-    const newUser = {
-        username,
-        password,
-        email,
-        edad,
-        telefono,
-        direccion
-    }
-
-    mailer.send(newUser)
-
-    baseUsuarios.save(newUser)
-    logger.info("Nuevo usuario registrado.")
-    return done(null, newUser)
-}))
 
 //----Loggin-----//
 passport.use('login', new LocalStrategy(async (email, password, done) => {
@@ -80,7 +48,7 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser(async (email, done) => {
-    const usuario = await baseUsuarios.email(email)
+    const usuario = await baseUsuarios.getByEmail(email)
     done(null, usuario)
 })
 
@@ -90,26 +58,13 @@ export class Passport {
 
     constructor() { }
 
-    //Registro
-    renderRegister(req, res) {
-        res.render('./forms/log/registro');
-    }
-
-    register(req, res) {
-        passport.authenticate('register', { failureRedirect: '/failregister', successRedirect: '/apiproductos' })
-    }
-
-    renderFailRegister(req, res) {
-        res.render('./forms/log/noReg');
-    }
-
     //Inicio Session
     renderLogin(req, res) {
         res.render('./forms/log/login');
     }
 
     login(req, res) {
-        passport.authenticate('login', { failureRedirect: '/faillogin', successRedirect: '/index' })
+        passport.authenticate('login', { failureRedirect: '/faillogin', successRedirect: '/api/productos' })
     }
 
     renderFailLogin(req, res) {

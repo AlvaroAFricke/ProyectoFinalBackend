@@ -13,11 +13,11 @@ export default class CarritosRoutes {
     this.carritosController = new CarritosController();
 
     //Rutas
-    this.router.post('/', isAuthenticated, this.carritosController.crearCarrito);
-    this.router.delete('/:id', isAuthenticated, this.carritosController.borrarCarrito);
-    this.router.get('/:id', isAuthenticated, this.carritosController.obtenerCarrito);
-    this.router.post('/:id/producto', isAuthenticated, this.carritosController.agregarProductoAlCarrito);
-    this.router.delete('/:id/producto/:idProd', isAuthenticated, this.carritosController.borrarProductoDelCarrito);
+    this.router.post('/', this.carritosController.crearCarrito)
+    this.router.delete('/:idCarr',  this.carritosController.borrarCarrito);
+    this.router.get('/:idCarr',  this.carritosController.obtenerCarrito);
+    this.router.post('/:idCarr/producto/:idProd',  this.carritosController.procesarCarrito);
+    this.router.delete('/:idCarr/producto/:idProd',  this.carritosController.procesarCarrito);
   }
 
 }

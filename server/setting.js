@@ -10,6 +10,7 @@ import Args from '../utils/args.js';
 import ProductosRoutes from '../routes/productos.js';
 import CarritosRoutes from '../routes/carritos.js';
 import LoggueoRoutes from '../routes/loggeo.js'
+import Pedido from '../routes/pedido.js'
 import NotFound from '../routes/notFound.js'
 
 // Cargar variables de entorno desde el archivo .env
@@ -45,6 +46,9 @@ export default class Server {
 
     const loggsRoutes = new LoggueoRoutes();
     this.app.use('/', loggsRoutes.router)
+
+    const pedido = new Pedido();
+    this.app.use('/api/pedido', pedido.router);
 
     const notFound = new NotFound();
     this.app.use(notFound.router)

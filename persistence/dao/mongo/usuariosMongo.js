@@ -13,11 +13,15 @@ const parentDir = join(__dirname, '..', '..', '..', './.env');
 
 dotenv.config({path: parentDir}); // Cargar variables de entorno
 
-export default class UsuariosMongo {
+class UsuariosMongo {
   constructor() {
+    if (UsuariosMongo.instance) {
+      return UsuariosMongo.instance;
+    }
     const MONGODB_URI = process.env.MONGODB_URI;
     const conectar = new Connect(MONGODB_URI);
     conectar.connect();
+    UsuariosMongo.instance = this;
   }
 
   async getById(id) {
@@ -61,7 +65,6 @@ export default class UsuariosMongo {
     }
 }
 
-
   async deleteById(id) {
     try {
       // Eliminar un usuario por su ID
@@ -72,3 +75,4 @@ export default class UsuariosMongo {
   }
 }
 
+export default UsuariosMongo;

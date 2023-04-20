@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 
 const usuarioSchema = new mongoose.Schema({
     // Campos del modelo de usuario
@@ -26,6 +25,10 @@ const usuarioSchema = new mongoose.Schema({
     },
     telefono: {
         type: String,
+        required: true
+    },
+    carrito: {
+        type: Object,
         required: true
     }
 });

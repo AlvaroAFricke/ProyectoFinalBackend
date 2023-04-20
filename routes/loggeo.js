@@ -1,5 +1,8 @@
 import express from 'express';
+import Register from '../controllers/register.js';
 import {Passport} from '../controllers/authController.js';
+
+const registro = new Register()
 
 export default class LoggRoutes {
   constructor() {
@@ -9,9 +12,9 @@ export default class LoggRoutes {
     this.authController = new Passport()
 
     // Rutas Registro
-    this.router.get('/register', this.authController.renderRegister);
-    this.router.post('/register', this.authController.register);
-    this.router.get('/failregister', this.authController.renderFailRegister);
+    this.router.get('/register', registro.renderRegister);
+    this.router.post('/register', registro.register);
+    this.router.get('/failregister', registro.renderFailRegister);
 
     //Rutas Login
     this.router.get('/login', this.authController.renderLogin);

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Carrito</title>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <% if (productos.length > 0) { %>
+        <ul>
+            <% productos.forEach((producto) => { %>
+                <li><%= producto.nombre %></li>
+            <% }); %>
+        </ul>
+        <form method="post" action="/api/pedido<%= productos %>">
+            <button type="submit">Solicitar Pedido</button>
+        </form>
+    <% } else { %>
+        <p>No hay productos en el carrito.</p>
+    <% } %>
+</body>
+</html>

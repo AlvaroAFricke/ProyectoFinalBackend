@@ -1,27 +1,28 @@
 import Factory from '../persistence/factory/factoryCarritos.js';
 import Args from '../utils/args.js';
 
+const arg = new Args();
+const carritoDAO = new Factory(arg.getTypePersistence());
+
 export default class CarritoService {
   constructor() {
-    const arg = new Args();
-    this.carritoDAO = new Factory(arg.getTypePersistence());
+    
   }
 
-  async obtenerProductosDelCarrito(id) {
+  async obtenerCarrito(id) {
     try {
       // Lógica para obtener un carrito por ID
-      const carrito = await this.carritoDAO.getById(id);
-      return carrito.productos
+      const carrito = await carritoDAO.getById(id);
+      return carrito
     } catch (error) {
       console.error(`Error al obtener el carrito con ID ${id}:`, error);
       throw error;
     }
   }
 
-  async guardarCarrito(carritoData) {
+  async crearCarrito() {
     try {
-      // Lógica para guardar un carrito
-      const carritoGuardado = await this.carritoDAO.save(carritoData);
+      const carritoGuardado = await carritoDAO.save();
       return carritoGuardado;
     } catch (error) {
       console.error('Error al guardar el carrito:', error);
@@ -29,21 +30,39 @@ export default class CarritoService {
     }
   }
 
-  async actualizarCarrito(id, carritoData) {
+  async agregarProducto(idCarr, producto) {
     try {
-      // Lógica para actualizar un carrito
-      const carritoActualizado = await this.carritoDAO.updateCarrito(id, carritoData);
-      return carritoActualizado;
+      const carrito = await carritoDAO.getById(idCarr);
+
+      carrito.productos.push(producto);
+      await carritoDAO.updateCarrito(idCarr, carrito);
+
+      return carrito;
     } catch (error) {
-      console.error(`Error al actualizar el carrito con ID ${id}:`, error);
+      console.error(`Error al actualizar el carrito con ID ${idCarr}:`, error);
       throw error;
     }
   }
 
-  async eliminarCarritoPorId(id) {
+  async eliminarProducto(idCarr, producto) {
+    try {
+      const carrito = await carritoDAO.getById(idCarr);
+
+      carrito.productos = carrito.productos.filter((item) => item !== producto)
+
+      await carritoDAO.updateCarrito(idCarr, carrito);
+
+      return carrito;
+    } catch (error) {
+      console.error(`Error al actualizar el carrito con ID ${idCarr}:`, error);
+      throw error;
+    }
+  }
+
+  async vaciarCarrito(id) {
     try {
       // Lógica para eliminar un carrito por ID
-      const carritoEliminado = await this.carritoDAO.deleteById(id);
+      const carritoEliminado = await carritoDAO.deleteById(id);
       return carritoEliminado;
     } catch (error) {
       console.error(`Error al eliminar el carrito con ID ${id}:`, error);

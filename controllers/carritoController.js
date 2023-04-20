@@ -1,33 +1,49 @@
+import CarritoService from "../service/carritoService.js";
+import ProductoService from "../service/productoService.js";
+
+const carrService = new CarritoService();
+const prodService = new ProductoService();
+
 export default class CarritosController {
 
-    constructor() {}
+    constructor() { }
 
     crearCarrito(req, res) {
-        res.send('Crear carrito');
+        const id = carrService.crearCarrito()
+        res.send(id)
     }
 
     borrarCarrito(req, res) {
-        const { id } = req.params;
-        // Lógica para manejar la eliminación de un carrito por ID
-        res.send(`Eliminar carrito con ID: ${id}`);
+        const { idCArr } = req.params;
+        carrService.eliminarCarritoPorId(idCArr)
+        res.send(`Eliminar carrito con ID: ${idCArr}`);
     }
 
-    obtenerCarrito(req, res) {
-        const { id } = req.params;
-        // Lógica para obtener un carrito por ID
-        res.send(`Obtener carrito con ID: ${id}`);
+    async obtenerCarrito(req, res) {
+        const {idCarr} = req.params;
+
+        const carrito = await carrService.obtenerCarrito(idCarr)
+        const prodsCarrito = carrito.productos;
+        
+        res.render('verCarrito', {productos:prodsCarrito});
     }
 
-    agregarProductoAlCarrito(req, res) {
-        const { id } = req.params;
-        // Lógica para manejar la creación de un producto en un carrito con ID
-        res.send(`Crear producto en carrito con ID: ${id}`);
-    }
 
-    borrarProductoDelCarrito(req, res) {
-        const { id, idProd } = req.params;
-        // Lógica para manejar la eliminación de un producto de un carrito con ID y un producto en carrito con ID
-        res.send(`Eliminar producto con ID: ${idProd} del carrito con ID: ${id}`);
+    async procesarCarrito(req, res) {
+        const {idCarr} = req.params;
+        const {idProd} = req.params;
+
+        // Acceder al valor del campo oculto 'id' y realizar la acción correspondiente
+        const accion = req.body.accion;
+        if (accion === 'Añadir') {
+            const producto = await prodService.obtenerProductoPorId(idProd)
+            await carrService.agregarProducto(idCarr, producto);
+            res.redirect('/api/productos')
+        } else if (accion === 'Borrar') {
+            await carrService.eliminarProducto(idCarr, await prodService.obtenerProductoPorId(idProd));
+            res.redirect('/api/productos')
+        }
+
     }
 }
 

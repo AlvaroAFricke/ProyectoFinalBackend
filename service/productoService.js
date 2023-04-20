@@ -1,16 +1,18 @@
 import Factory from '../persistence/factory/factoryProductos.js';
 import Args from '../utils/args.js'
 
+const arg = new Args();
+const productoDAO = new Factory(arg.getTypePersistence())
+
 export default class ProductoService {
   constructor() {
-    const arg = new Args();
-    this.productoDAO = new Factory(arg.getTypePersistence())
+
   }
 
   async obtenerProductos() {
     try {
       // Lógica para obtener todos los productos
-      const productos = await this.productoDAO.getAll();
+      const productos = await productoDAO.getAll();
       
       return productos;
     } catch (error) {
@@ -22,7 +24,7 @@ export default class ProductoService {
   async obtenerProductoPorId(id) {
     try {
       // Lógica para obtener un producto por ID
-      const producto = await this.productoDAO.getById(id);
+      const producto = await productoDAO.getById(id);
       
       return producto;
     } catch (error) {
@@ -34,7 +36,7 @@ export default class ProductoService {
   async guardarProducto(productoData) {
     try {
       // Lógica para guardar un producto
-      const productoGuardado = await this.productoDAO.save(productoData);
+      const productoGuardado = await productoDAO.save(productoData);
       return productoGuardado;
       
     } catch (error) {
@@ -47,7 +49,7 @@ export default class ProductoService {
     try {
       // Lógica para actualizar un producto
       
-      const productoActualizado = await this.productoDAO.updateById(id, productoData);
+      const productoActualizado = await productoDAO.updateById(id, productoData);
       return productoActualizado;
     } catch (error) {
       console.error(`Error al actualizar el producto con ID ${id}:`, error);
@@ -57,7 +59,7 @@ export default class ProductoService {
 
   async eliminarProductos() {
     try {
-      const productosEliminado = await this.productoDAO.delete();
+      const productosEliminado = await productoDAO.delete();
       return productosEliminado;
     } catch (error) {
       console.error('Error al eliminar el producto. ', error);
@@ -69,7 +71,7 @@ export default class ProductoService {
     try {
       // Lógica para eliminar un producto por ID
       
-      const productoEliminado = await this.productoDAO.deleteById(id);
+      const productoEliminado = await productoDAO.deleteById(id);
       return productoEliminado;
     } catch (error) {
       console.error(`Error al eliminar el producto con ID ${id}:`, error);

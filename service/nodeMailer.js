@@ -25,7 +25,7 @@ export default class Mailer{
     }
 
     async send(data) {
-        const result = await transporter.sendMail({
+        const result = await this.transporter.sendMail({
             from: 'MiApp',
             to: MAIL_ADDRESS,
             subject: 'Nuevo Registro',

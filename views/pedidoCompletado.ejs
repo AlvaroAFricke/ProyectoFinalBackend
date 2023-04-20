@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agradecimiento por su Pedido</title>
+</head>
+<body>
+    <h1>¡Gracias por su Pedido, <%= usuario.nombre %>!</h1>
+    <p>Estaremos en contacto con usted respecto a su compra.</p>
+    <h2>Productos Pedidos:</h2>
+    <ul>
+        <% productos.forEach((producto) => { %>
+            <li><%= producto.nombre %></li>
+        <% }); %>
+    </ul>
+</body>
+</html>
