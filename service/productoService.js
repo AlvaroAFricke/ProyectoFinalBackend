@@ -9,6 +9,11 @@ export default class ProductoService {
 
   }
 
+  async buscarPorNombre(nombre) {
+    const producto = await productoDAO.getByName(nombre)
+    return producto
+}
+
   async obtenerProductos() {
     try {
  

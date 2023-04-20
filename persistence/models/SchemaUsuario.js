@@ -29,7 +29,7 @@ const usuarioSchema = new mongoose.Schema({
     },
     carrito: {
         type: Object,
-        required: true
+        default: null
     }
 });
 

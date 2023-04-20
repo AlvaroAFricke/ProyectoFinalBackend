@@ -13,10 +13,14 @@ export default class ProductosRoutes {
     this.productosController = new ProductosController();
 
     //Rutas
+    //Carga, Actualizacion y Borrado
     this.router.get('/cargarProducto', isAuthenticated, this.productosController.cargarProducto)
     this.router.put('/:id?', isAuthenticated, this.productosController.actualizarProducto)
-    this.router.post('/', isAuthenticated, this.productosController.guardarProducto);
     this.router.delete('/:id?', isAuthenticated, this.productosController.borrarProdutos);
+    this.router.post('/', isAuthenticated, this.productosController.guardarProducto);
+    
+    //Vista
+    this.router.get('/buscarProducto/:buscado', isAuthenticated, this.productosController.buscarNombre)
     this.router.get('/:id?', isAuthenticated, this.productosController.obtenerProductos);
   }
 }

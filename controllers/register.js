@@ -1,8 +1,6 @@
-import Mailer from '../service/nodeMailer.js'
-import bcrypt from 'bcrypt'
-
-import logger from "../utils/logger.js"
-
+import Mailer from '../service/nodeMailer.js';
+import bcrypt from 'bcrypt';
+import logger from "../utils/logger.js";
 import MongoUsuarios from "../persistence/dao/mongo/usuariosMongo.js";
 import CarritoService from '../service/carritoService.js';
 
@@ -12,28 +10,23 @@ const baseCarritos = new CarritoService();
 
 export default class Register {
     constructor() { }
-    //Registro
+
+    // Controlador para renderizar la página de registro
     renderRegister(req, res) {
         res.render('./forms/log/registro');
     }
 
+    // Controlador para el registro de un nuevo usuario
     async register(req, res) {
+        const { email, password, username, direccion, edad, telefono } = req.body;
 
-        /**Crearle un carrito al usuario */
-        const { email } = req.body
-        const { password } = req.body
-        const { username } = req.body
-        const { direccion } = req.body
-        const { edad } = req.body
-        const { telefono } = req.body
-
-        const usuario = await baseUsuarios.getByEmail(email)
-
-        // Generar el hash de la contraseña
-        const saltRounds = 10; // Número de rondas de sal para la generación del hash
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+        // Verificar si el usuario ya existe en la base de datos
+        const usuario = await baseUsuarios.getByEmail(email);
         if (!usuario) {
+            // Generar el hash de la contraseña
+            const saltRounds = 10; // Número de rondas de sal para la generación del hash
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+
             const newUser = {
                 username,
                 password: hashedPassword,
@@ -41,21 +34,24 @@ export default class Register {
                 edad,
                 telefono,
                 direccion,
-                carrito: await baseCarritos.crearCarrito()
-            }
+                carrito: null
+            };
 
-            mailer.send(newUser)
-            baseUsuarios.save(newUser)
+            // Enviar correo de confirmación
+            mailer.send(newUser);
 
-            logger.info("Nuevo usuario registrado.")
-            res.redirect('/login')
-            return
+            // Guardar el nuevo usuario en la base de datos
+            baseUsuarios.save(newUser);
+
+            logger.info("Nuevo usuario registrado.");
+            res.redirect('/login'); // Redirigir a la página de inicio de sesión
+        } else {
+            logger.info("Usuario existente.");
+            res.redirect('/failregister'); // Redirigir a la página de registro fallido
         }
-        logger.info("Usuario Existente.")
-        res.redirect('/failregister')
-        return
     }
 
+    // Controlador para renderizar la página de registro fallido
     renderFailRegister(req, res) {
         res.render('./forms/log/noReg');
     }

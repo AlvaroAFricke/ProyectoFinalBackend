@@ -8,7 +8,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Formulario de Carga de Productos</h1>
-        <form action="/api/productos" method="post" enctype="multipart/form-data">
+        <form action="/api/productos" method="post">
             <div class="form-group">
                 <label for="nombre">Nombre del Producto</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="imagen">Imagen del Producto</label>
-                <input type="file" class="form-control-file" id="imagen" name="imagen" required>
+                <input type="file" class="form-control-file" id="imagen" name="imagen" >
             </div>
             <div class="form-group">
                 <label for="precio">Precio</label>

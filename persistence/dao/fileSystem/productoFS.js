@@ -44,12 +44,12 @@ export default class ProductosFS {
 
     async updateById(id, productoActualizado) {
         try {
-            const data = await fs.promises.readFile(Local.ARCHIVO, 'utf-8');
+            const data = await fs.promises.readFile(ProductosFS.ARCHIVO, 'utf-8');
             let productos = JSON.parse(data);
             const index = productos.findIndex(producto => producto.id === id);
             if (index !== -1) {
                 productos[index] = { ...productos[index], ...productoActualizado };
-                await fs.promises.writeFile(Local.ARCHIVO, JSON.stringify(productos), 'utf-8');
+                await fs.promises.writeFile(ProductosFS.ARCHIVO, JSON.stringify(productos), 'utf-8');
                 return productos[index];
             } else {
                 throw new Error(`No se encontró el producto con id ${id}`);

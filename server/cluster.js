@@ -2,6 +2,7 @@ import cluster from 'cluster';
 import os from 'os';
 import Server from './setting.js';
 import Args from '../utils/args.js'
+import logger from '../utils/logger.js';
 
 export default class ClusterServer {
     constructor() {
@@ -19,7 +20,7 @@ export default class ClusterServer {
 
                 // Escuchar eventos de la muerte de los procesos hijos
                 cluster.on('exit', (worker) => {
-                    console.log(`Proceso hijo ${worker.process.pid} ha muerto`);
+                    logger.info(`Proceso hijo ${worker.process.pid} ha muerto`);
                     // Crear un nuevo proceso hijo para reemplazar el que ha muerto
                     cluster.fork();
                 });

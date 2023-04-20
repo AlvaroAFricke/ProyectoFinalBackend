@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import logger from '../../utils/logger.js';
 
 export default class MongoConnection {
   constructor(uri) {
@@ -11,17 +12,18 @@ export default class MongoConnection {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log('Conexión exitosa a MongoDB');
+      logger.info("Conectado a Mongo.")
     } catch (error) {
-      console.error('Error al conectar a MongoDB:', error);
-      process.exit(1);
+      logger.error('Error al conectar a MongoDB:', error);
+      throw new Error('No se pudo conectar a MongoDB');
     }
   }
 
   disconnect() {
     mongoose.connection.close(() => {
-      console.log('Desconexión de MongoDB');
+      logger.info('Desconexión de MongoDB');
       process.exit(0);
     });
   }
 }
+

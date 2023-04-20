@@ -20,13 +20,22 @@ export default class ProductoMongo {
     conectar.connect()
   }
 
+  async getByName(nombre) {
+    try {
+      const producto = await Producto.findOne({nombre: nombre})
+      return producto
+    } catch (error) {
+      throw new Error(`Error al obtener el producto por nombre: ${error.message}`);
+    }
+  }
+
   async getAll() {
     try {
       // Obtener todos los productos de la base de datos
       const productos = await Producto.find({});
       return productos;
     } catch (error) {
-      throw new Error(`Error al obtener todos los productos: ${error}`);
+      throw new Error(`Error al obtener todos los productos: ${error.message}`);
     }
   }
 
@@ -36,7 +45,7 @@ export default class ProductoMongo {
       const producto = await Producto.findById(id);
       return producto;
     } catch (error) {
-      throw new Error(`Error al obtener el producto por ID: ${error}`);
+      throw new Error(`Error al obtener el producto por ID: ${error.message}`);
     }
   }
 
@@ -55,7 +64,7 @@ export default class ProductoMongo {
       const productoGuardado = await producto.save();
       return productoGuardado;
     } catch (error) {
-      throw new Error(`Error al guardar el producto: ${error}`);
+      throw new Error(`Error al guardar el producto: ${error.message}`);
     }
   }
 
@@ -65,7 +74,7 @@ export default class ProductoMongo {
       const productoActualizado = await Producto.findByIdAndUpdate(id, productoData, { new: true });
       return productoActualizado;
     } catch (error) {
-      throw new Error(`Error al actualizar el producto por ID: ${error}`);
+      throw new Error(`Error al actualizar el producto por ID: ${error.message}`);
     }
   }
 
@@ -73,7 +82,7 @@ export default class ProductoMongo {
     try {
       await Producto.deleteMany({})
     } catch (error) {
-      throw new Error(`Error al eliminar el producto por ID: ${error}`);
+      throw new Error(`Error al eliminar todos los productos: ${error.message}`);
     }
   }
 
@@ -82,7 +91,7 @@ export default class ProductoMongo {
       // Eliminar un producto por su ID
       await Producto.findByIdAndDelete(id);
     } catch (error) {
-      throw new Error(`Error al eliminar el producto por ID: ${error}`);
+      throw new Error(`Error al eliminar el producto por ID: ${error.message}`);
     }
   }
 }

@@ -14,7 +14,7 @@ export default class LoginController {
     // Controlador para la ruta de inicio de sesión
     login(req, res, next) {
         passport.authenticate('local', {
-            successRedirect: '/api/productos', // Redirección exitosa
+            successRedirect: '/api/carrito', // Redirección exitosa
             failureRedirect: '/faillogin' // Redirección en caso de fallo
         })(req, res, next);
     }

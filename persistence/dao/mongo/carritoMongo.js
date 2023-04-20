@@ -61,17 +61,6 @@ export default class CarritoMongo {
     }
   }
 
-  async vaciarCarrito(id) {
-    try {
-      const carrito = await Carrito.findById(id);
-      carrito.productos = [];
-      this.updateCarrito(id, carrito);
-      return carrito;
-    } catch (error) {
-      throw new Error;
-    }
-  }
-
   async deleteById(id) {
     try {
       // Eliminar un carrito por su ID

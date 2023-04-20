@@ -69,14 +69,4 @@ export default class CarritoService {
     }
   }
 
-  async vaciarCarrito(id) {
-    try {
-      // Lógica para eliminar un carrito por ID
-      const carritoEliminado = await carritoDAO.deleteById(id);
-      return carritoEliminado;
-    } catch (error) {
-      console.error(`Error al eliminar el carrito con ID ${id}:`, error);
-      throw error;
-    }
-  }
 }

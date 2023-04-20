@@ -16,8 +16,10 @@ export default class CarritoFS {
   async create() {
     const data = await fs.promises.readFile(CarritoFS.ARCHIVO, 'utf-8');
     const carritos = JSON.parse(data);
-    carritos.push(new Carrito(Math.random ,new Date()));
+    const nuevoCarrito = new Carrito(Math.random() ,new Date());
+    carritos.push(nuevoCarrito);
     await fs.promises.writeFile(CarritoFS.ARCHIVO, JSON.stringify(carritos), 'utf-8');
+    return nuevoCarrito;
   }
 
   async getById(id) {
@@ -36,6 +38,7 @@ export default class CarritoFS {
       const carritos = JSON.parse(data);
       carritos.push(carrito);
       await fs.promises.writeFile(CarritoFS.ARCHIVO, JSON.stringify(carritos), 'utf-8');
+      return carrito;
     } catch (error) {
       throw new Error('Error al guardar el carrito: ' + error);
     }
