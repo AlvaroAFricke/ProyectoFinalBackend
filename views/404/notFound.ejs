@@ -2,10 +2,20 @@
 <html>
 <head>
   <title>Not Found</title>
-  <link rel="stylesheet" href="../public/css/notFound.css"> <!-- Enlaza el archivo de estilos CSS -->
+  <!-- Enlace a la hoja de estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>Error 404: Página no encontrada</h1>
-  <p>Lo sentimos, la página que estás buscando no ha sido encontrada.</p>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <h1 class="text-center">Error 404: Página no encontrada</h1>
+        <p class="text-center">Lo sentimos, la página que estás buscando no ha sido encontrada.</p>
+        <div class="text-center mt-4">
+          <a href="/api/productos" class="btn btn-primary">Volver a la página de inicio</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Lista de Productos</title>
   <!-- Agregar enlaces a los estilos de Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
   <div class="container mt-5">
     <div class="row">
@@ -25,30 +27,44 @@
       </div>
     </div>
     <ul class="list-group mt-4">
-      <% if (!productos || productos.length === 0) { %>
+      <% if (!productos || productos.length===0) { %>
         <li class="list-group-item">No hay productos disponibles</li>
-      <% } else { %>
-        <% productos.forEach(function(producto) { %>
-          <li class="list-group-item">
-            <h3><%= producto.nombre %></h3>
-            <p>Descripción: <%= producto.descripcion %></p>
-            <p>Código: <%= producto.codigo %></p>
-            <p>Imagen: <%= producto.imagen %></p>
-            <p>Precio: <%= producto.precio %></p>
-            <p>Stock: <%= producto.stock %></p>
-            <form method="post" action="/api/carrito/<%= usuario.carrito._id %>/producto/<%= producto._id %>">
-              <input type="submit" value="Añadir" name="accion" class="btn btn-primary mr-2">
-              <input type="submit" value="Borrar" name="accion" class="btn btn-danger">
-            </form>
-          </li>
-        <% }); %>
-      <% } %>
+        <% } else { %>
+          <% productos.forEach(function(producto) { %>
+            <li class="list-group-item">
+              <h3>
+                <%= producto.nombre %>
+              </h3>
+              <p>Descripción: <%= producto.descripcion %>
+              </p>
+              <p>Imagen: <%= producto.imagen %>
+              </p>
+              <p>Precio: <%= producto.precio %>
+              </p>
+              <p>Stock: <%= producto.stock %>
+              </p>
+              <form method="post" action="/api/carrito/<%= usuario.carrito._id %>/producto/<%= producto._id %>">
+                <input type="submit" value="Añadir" name="accion" class="btn btn-primary mr-2"
+                  onclick="mostrarMensaje('Producto añadido al carrito')">
+                <input type="submit" value="Borrar" name="accion" class="btn btn-danger"
+                  onclick="mostrarMensaje('Producto borrado del carrito')">
+              </form>
+            </li>
+            <% }); %>
+              <% } %>
     </ul>
   </div>
 
-  <!-- Agregar enlaces a los scripts de Bootstrap y jQuery -->
+  <!-- Agregar enlaces a los scripts de Bootstrap, jQuery y el script de alerta -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function mostrarMensaje(mensaje) {
+      alert(mensaje);
+    }
+  </script>
+
 </body>
+
 </html>

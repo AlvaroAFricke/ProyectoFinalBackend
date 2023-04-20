@@ -1,14 +1,18 @@
+import CarritoService from "../service/carritoService.js";
+
+const carritoService = new CarritoService();
+
 export default class Pedido {
 
     constructor() { }
 
     async renderPedido(req, res) {
-
-        /**
-         * para renderizar se necesita, usuario y la lista de productos que la tomo de usuario.carr
-         */
         
-        res.render('pedidoCompletado', {productos})
+        const usuario = req.user;
+        const carrito = await carritoService.obtenerCarrito(usuario.carrito._id);
+        const productos = carrito.productos;
+
+        res.render('pedidoCompletado', {usuario, productos})
     }
 
     async solicitarPedido(req, res) {

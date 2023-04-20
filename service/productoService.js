@@ -11,7 +11,7 @@ export default class ProductoService {
 
   async obtenerProductos() {
     try {
-      // Lógica para obtener todos los productos
+ 
       const productos = await productoDAO.getAll();
       
       return productos;
@@ -23,7 +23,7 @@ export default class ProductoService {
 
   async obtenerProductoPorId(id) {
     try {
-      // Lógica para obtener un producto por ID
+
       const producto = await productoDAO.getById(id);
       
       return producto;
@@ -35,7 +35,7 @@ export default class ProductoService {
 
   async guardarProducto(productoData) {
     try {
-      // Lógica para guardar un producto
+   
       const productoGuardado = await productoDAO.save(productoData);
       return productoGuardado;
       
@@ -47,7 +47,7 @@ export default class ProductoService {
 
   async actualizarProducto(id, productoData) {
     try {
-      // Lógica para actualizar un producto
+
       
       const productoActualizado = await productoDAO.updateById(id, productoData);
       return productoActualizado;

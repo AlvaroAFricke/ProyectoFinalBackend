@@ -2,15 +2,19 @@
 <html>
 <head>
     <title>Agradecimiento por su Pedido</title>
+    <!-- Enlace a la hoja de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>¡Gracias por su Pedido, <%= usuario.nombre %>!</h1>
-    <p>Estaremos en contacto con usted respecto a su compra.</p>
-    <h2>Productos Pedidos:</h2>
-    <ul>
-        <% productos.forEach((producto) => { %>
-            <li><%= producto.nombre %></li>
-        <% }); %>
-    </ul>
+    <div class="container mt-5">
+        <h1 class="text-center">¡Gracias por su Pedido, <%= usuario.username %>!</h1>
+        <p class="text-center">Estaremos en contacto con usted respecto a su compra.</p>
+        <h2 class="text-center">Productos Pedidos:</h2>
+        <ul class="list-group mx-auto" style="max-width: 400px;">
+            <% productos.forEach((producto) => { %>
+                <li class="list-group-item"><%= producto.nombre %></li>
+            <% }); %>
+        </ul>
+    </div>
 </body>
 </html>

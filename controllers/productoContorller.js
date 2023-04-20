@@ -2,15 +2,13 @@ import ProductoService from "../service/productoService.js";
 
 const prodService = new ProductoService()
 
-//Quitar
-import DBUser from '../persistence/dao/mongo/usuariosMongo.js'
-//
-
-const dbUsuarios = new DBUser();
-
 export default class ProductosRoutes {
 
     constructor() { }
+
+    async cargarProducto (req,res) {
+        res.render('./forms/productos/formProducto')
+    }
 
     async obtenerProductos(req, res) {
         const usuario = req.user

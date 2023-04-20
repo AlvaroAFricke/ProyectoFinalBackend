@@ -6,7 +6,7 @@ const carritoDAO = new Factory(arg.getTypePersistence());
 
 export default class CarritoService {
   constructor() {
-    
+
   }
 
   async obtenerCarrito(id) {
@@ -46,13 +46,23 @@ export default class CarritoService {
 
   async eliminarProducto(idCarr, producto) {
     try {
+
       const carrito = await carritoDAO.getById(idCarr);
+      const nombre = producto.nombre;
 
-      carrito.productos = carrito.productos.filter((item) => item !== producto)
+      // Utilizamos el método findIndex() para encontrar el índice del primer producto con el nombre a borrar
+      const index = carrito.productos.findIndex(producto => producto.nombre === nombre);
 
+      if (index !== -1) {
+        // Si se encontró el producto, utilizamos el método splice() para borrarlo del array
+        carrito.productos.splice(index, 1);
+      }
+
+      // Actualizamos el carrito en la base de datos
       await carritoDAO.updateCarrito(idCarr, carrito);
 
       return carrito;
+
     } catch (error) {
       console.error(`Error al actualizar el carrito con ID ${idCarr}:`, error);
       throw error;
