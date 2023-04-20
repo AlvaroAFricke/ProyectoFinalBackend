@@ -1,1 +1,1 @@
-[]
+[{"nombre":"asd","descripcion":"asd","time":"2023-04-20T18:16:00.449Z","codigo":"asd","imagen":"","precio":"1","stock":"1","_id":"TKFZNR"},{"nombre":"zxc","descripcion":"zxc","time":"2023-04-20T18:16:23.596Z","codigo":"144","imagen":"","precio":"1","stock":"1","_id":"LHRJ2U"}]

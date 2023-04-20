@@ -14,9 +14,9 @@ export default class ProductosRoutes {
 
     //Rutas
     //Carga, Actualizacion y Borrado
-    this.router.get('/cargarProducto', isAuthenticated, this.productosController.cargarProducto)
+    this.router.get('/gestionarProductos', isAuthenticated, this.productosController.cargarProducto)
     this.router.put('/:id?', isAuthenticated, this.productosController.actualizarProducto)
-    this.router.delete('/:id?', isAuthenticated, this.productosController.borrarProdutos);
+    this.router.delete('/:id?', isAuthenticated, this.productosController.borrarPorNombre);
     this.router.post('/', isAuthenticated, this.productosController.guardarProducto);
     
     //Vista

@@ -12,7 +12,7 @@ export default class Routes {
     
     //Rutas
     this.router.get('/', isAuthenticated , this.pedido.renderPedido);
-    this.router.post('/:productos', isAuthenticated , this.pedido.solicitarPedido)
+    this.router.post('/', isAuthenticated , this.pedido.solicitarPedido)
 
   }
 }

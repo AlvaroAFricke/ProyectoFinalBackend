@@ -1,12 +1,10 @@
-import Mailer from '../service/nodeMailer.js';
+import Mailer from '../service/mensajeria/nodeMailer.js';
 import bcrypt from 'bcrypt';
 import logger from "../utils/logger.js";
 import MongoUsuarios from "../persistence/dao/mongo/usuariosMongo.js";
-import CarritoService from '../service/carritoService.js';
 
 const mailer = new Mailer();
 const baseUsuarios = new MongoUsuarios();
-const baseCarritos = new CarritoService();
 
 export default class Register {
     constructor() { }
@@ -38,7 +36,7 @@ export default class Register {
             };
 
             // Enviar correo de confirmación
-            mailer.send(newUser);
+            mailer.mensajeRegistro(newUser);
 
             // Guardar el nuevo usuario en la base de datos
             baseUsuarios.save(newUser);

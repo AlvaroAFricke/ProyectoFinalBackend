@@ -52,7 +52,7 @@ export default class ProductosRoutes {
             res.status(500).send('Error interno del servidor');
         }
     }
-    
+
 
     // Controlador para guardar un nuevo producto
     async guardarProducto(req, res) {
@@ -102,8 +102,6 @@ export default class ProductosRoutes {
     // Función para manejar la ruta PUT
     async actualizarProducto(req, res) {
 
-        /**Revisar */
-
         try {
 
             const { id } = req.params
@@ -135,18 +133,23 @@ export default class ProductosRoutes {
         }
     }
 
-    // Función para manejar la ruta DELETE
-    async borrarProdutos(req, res) {
-        const { id } = req.params;
-        if (id) {
-            await prodService.eliminarProductoPorId(id)
-            const productos = await prodService.obtenerProductos()
-            res.render('index', { productos }); // Renderizar la vista y pasar los datos
-        } else {
-            const productos = await prodService.eliminarProductos()
-            res.render('index', { productos: productos })
+    async borrarPorNombre(req, res) {
+        try {
+            const nombreBorrado = req.body.buscarNombre;
+            console.log(nombreBorrado);
+            const producto = await prodService.buscarPorNombre(nombreBorrado);
+            console.log(producto);
+            const id = producto._id;
+            console.log(id);
+            await prodService.eliminarProductoPorId(id);
+            res.redirect('/api/productos');
+        } catch (error) {
+            // Manejar el error adecuadamente, como mostrar mensajes de error o redirigir a una página de error
+            console.error(error);
+            res.status(500).send('Error al eliminar producto por nombre');
         }
     }
+    
 
 }
 

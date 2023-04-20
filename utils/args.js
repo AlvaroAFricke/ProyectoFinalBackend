@@ -3,7 +3,7 @@ import minimist from 'minimist';
 export default class Arguments {
   constructor() {
     const opciones = {
-      alias: {
+    alias: {
         t: 'tipo',
         p: 'port',
         m: 'mode'
@@ -41,5 +41,5 @@ export default class Arguments {
       return 'dev'
     }
   }
-
+  
 }

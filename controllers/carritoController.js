@@ -19,7 +19,7 @@ export default class CarritosController {
 
     async obtenerCarrito(req, res) {
         const { idCarr } = req.params;
-
+        
         const carrito = await carrService.obtenerCarrito(idCarr)
         const prodsCarrito = carrito.productos;
 

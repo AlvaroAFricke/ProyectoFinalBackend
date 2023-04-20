@@ -35,6 +35,15 @@
             </div>
             <button type="submit" class="btn btn-primary">Cargar Producto</button>
         </form>
+        <hr>
+        <h2 class="text-center">Búsqueda y Eliminación de Productos</h2>
+        <form action="/api/productos" method="delete">
+            <div class="form-group">
+                <label for="buscarNombre">Buscar por Nombre</label>
+                <input type="text" class="form-control" id="buscarNombre" name="buscarNombre">
+            </div>
+            <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+        </form>
     </div>
 </body>
 </html>

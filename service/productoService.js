@@ -52,8 +52,6 @@ export default class ProductoService {
 
   async actualizarProducto(id, productoData) {
     try {
-
-      
       const productoActualizado = await productoDAO.updateById(id, productoData);
       return productoActualizado;
     } catch (error) {
@@ -74,8 +72,6 @@ export default class ProductoService {
 
   async eliminarProductoPorId(id) {
     try {
-      // Lógica para eliminar un producto por ID
-      
       const productoEliminado = await productoDAO.deleteById(id);
       return productoEliminado;
     } catch (error) {

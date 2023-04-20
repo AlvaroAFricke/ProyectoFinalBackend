@@ -12,9 +12,15 @@
         <h2 class="text-center">Productos Pedidos:</h2>
         <ul class="list-group mx-auto" style="max-width: 400px;">
             <% productos.forEach((producto) => { %>
-                <li class="list-group-item"><%= producto.nombre %></li>
+                <li class="list-group-item">
+                    <span><%= producto.nombre %></span>
+                    <p><%= producto.descripcion %></p> <!-- Descripción del producto -->
+                </li>
             <% }); %>
         </ul>
+        <div class="text-center mt-3"> <!-- Div contenedor para centrar el botón -->
+            <a href="/api/productos" class="btn btn-primary">Regresar</a> <!-- Botón de regreso centrado -->
+        </div>
     </div>
 </body>
 </html>
