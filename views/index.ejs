@@ -2,38 +2,53 @@
 <html>
 <head>
   <title>Lista de Productos</title>
+  <!-- Agregar enlaces a los estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <!-- Mostrar saludo al usuario con su nombre -->
-  <h2>Hola, <%= usuario.username %>!</h2>
-  <h1>Lista de Productos</h1>
-  <ul>
-    <% if (!productos || productos.length === 0) { %>
-      <li>No hay productos disponibles</li>
-    <% } else { %>
-      <% productos.forEach(function(producto) { %>
-        <li>
-          <h3><%= producto.nombre %></h3>
-          <p>Descripción: <%= producto.descripcion %></p>
-          <p>Código: <%= producto.codigo %></p>
-          <p>Imagen: <%= producto.imagen %></p>
-          <p>Precio: <%= producto.precio %></p>
-          <p>Stock: <%= producto.stock %></p>
-          <form method="post" action="/api/carrito/<%= usuario.carrito._id %>/producto/<%= producto._id %>">
-            <input type="submit" value="Añadir" name="accion">
-            <input type="submit" value="Borrar" name="accion">
-          </form>
-        </li>
-      <% }); %>
-    <% } %>
-  </ul>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Mostrar saludo al usuario con su nombre -->
+        <h2>Hola, <%= usuario.username %>!</h2>
+        <h1>Lista de Productos</h1>
+      </div>
+      <div class="col-md-6 text-right">
+        <!-- Botón para ver el carrito -->
+        <form method="get" action="/api/carrito/<%= usuario.carrito._id %>">
+          <input type="submit" value="Ver carrito" class="btn btn-info mt-4 mr-2">
+        </form>
+        <!-- Botón de cerrar sesión -->
+        <form method="get" action="/logout">
+          <input type="submit" value="Cerrar sesión" class="btn btn-danger mt-4">
+        </form>
+      </div>
+    </div>
+    <ul class="list-group mt-4">
+      <% if (!productos || productos.length === 0) { %>
+        <li class="list-group-item">No hay productos disponibles</li>
+      <% } else { %>
+        <% productos.forEach(function(producto) { %>
+          <li class="list-group-item">
+            <h3><%= producto.nombre %></h3>
+            <p>Descripción: <%= producto.descripcion %></p>
+            <p>Código: <%= producto.codigo %></p>
+            <p>Imagen: <%= producto.imagen %></p>
+            <p>Precio: <%= producto.precio %></p>
+            <p>Stock: <%= producto.stock %></p>
+            <form method="post" action="/api/carrito/<%= usuario.carrito._id %>/producto/<%= producto._id %>">
+              <input type="submit" value="Añadir" name="accion" class="btn btn-primary mr-2">
+              <input type="submit" value="Borrar" name="accion" class="btn btn-danger">
+            </form>
+          </li>
+        <% }); %>
+      <% } %>
+    </ul>
+  </div>
 
-    <!-- Botón para ver el carrito -->
-    <form method="get" action="/api/carrito/<%= usuario.carrito._id %>">
-      <input type="submit" value="Ver carrito">
-    </form>
-
+  <!-- Agregar enlaces a los scripts de Bootstrap y jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-

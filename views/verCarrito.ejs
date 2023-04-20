@@ -2,20 +2,42 @@
 <html>
 <head>
     <title>Ver Carrito</title>
+    <!-- Agregar enlaces a los estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Carrito de Compras</h1>
-    <% if (productos.length > 0) { %>
-        <ul>
-            <% productos.forEach((producto) => { %>
-                <li><%= producto.nombre %></li>
-            <% }); %>
-        </ul>
-        <form method="post" action="/api/pedido<%= productos %>">
-            <button type="submit">Solicitar Pedido</button>
-        </form>
-    <% } else { %>
-        <p>No hay productos en el carrito.</p>
-    <% } %>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <!-- Botón de cerrar sesión -->
+                <form method="get" action="/logout">
+                    <input type="submit" value="Cerrar sesión" class="btn btn-danger">
+                </form>
+                <!-- Botón de ver lista -->
+                <form method="get" action="/api/productos" class="ml-3">
+                    <input type="submit" value="Ver Lista" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+        <h1 class="mb-4">Carrito de Compras</h1>
+        <% if (productos.length > 0) { %>
+            <ul>
+                <% productos.forEach((producto) => { %>
+                    <li><%= producto.nombre %></li>
+                <% }); %>
+            </ul>
+            <form method="post" action="/api/pedido<%= productos %>">
+                <button type="submit" class="btn btn-primary">Solicitar Pedido</button>
+            </form>
+        <% } else { %>
+            <p>No hay productos en el carrito.</p>
+        <% } %>
+    </div>
+
+    <!-- Agregar enlaces a los scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

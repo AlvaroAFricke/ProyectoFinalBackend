@@ -16,7 +16,7 @@ export default class ProductosRoutes {
     this.router.put('/:id?',  this.productosController.actualizarProducto)
     this.router.post('/',  this.productosController.guardarProducto);
     this.router.delete('/:id?',  this.productosController.borrarProdutos);
-    this.router.get('/:id', isAuthenticated , this.productosController.obtenerProductos);
+    this.router.get('/:id?', isAuthenticated , this.productosController.obtenerProductos);
   }
 }
 
