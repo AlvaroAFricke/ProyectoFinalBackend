@@ -1,6 +1,9 @@
 import express from 'express';
 import Pedido from '../controllers/pedido.js';
 
+// Importar el middleware de autenticación
+import { isAuthenticated } from './auth/auth.js';
+
 export default class Routes {
   constructor() {
     // Crear una instancia del enrutador de Express
@@ -8,8 +11,8 @@ export default class Routes {
     this.pedido = new Pedido()
     
     //Rutas
-    this.router.get('/', this.pedido.renderPedido);
-    this.router.post('/:productos', this.pedido.solicitarPedido)
+    this.router.get('/', isAuthenticated , this.pedido.renderPedido);
+    this.router.post('/:productos', isAuthenticated , this.pedido.solicitarPedido)
 
   }
 }

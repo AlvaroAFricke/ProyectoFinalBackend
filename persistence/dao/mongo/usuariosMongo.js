@@ -37,7 +37,7 @@ class UsuariosMongo {
   async getByEmail(email) {
     try {
       // Obtener un usuario por su ID
-      const usuario = await Usuario.find({email: email});
+      const usuario = await Usuario.findOne({email: email});
       return usuario;
     } catch (error) {
       throw new Error(`Error al obtener el usuario por Email: ${error}`);

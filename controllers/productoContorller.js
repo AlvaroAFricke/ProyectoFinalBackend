@@ -13,14 +13,14 @@ export default class ProductosRoutes {
     constructor() { }
 
     async obtenerProductos(req, res) {
+        const usuario = req.user
         const id = req.params.id;
         if (id) {
             const producto = await prodService.obtenerProductoPorId(id)
             res.render('index', {usuario: usuario, productos: [producto] }); // Renderizar la vista y pasar los datos
         } else {
             const productos = await prodService.obtenerProductos()
-            const usuario = await dbUsuarios.getById("6440675c2358525e5c1d9e08")
-            res.render('index', { usuario, productos }); // Renderizar la vista y pasar los datos
+            res.render('index', { usuario: usuario, productos }); // Renderizar la vista y pasar los datos
         }
     }
 

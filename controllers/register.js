@@ -1,4 +1,5 @@
 import Mailer from '../service/nodeMailer.js'
+import bcrypt from 'bcrypt'
 
 import logger from "../utils/logger.js"
 
@@ -28,24 +29,30 @@ export default class Register {
 
         const usuario = await baseUsuarios.getByEmail(email)
 
-        if (usuario.length == 0) {
+        // Generar el hash de la contraseña
+        const saltRounds = 10; // Número de rondas de sal para la generación del hash
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        if (!usuario) {
             const newUser = {
                 username,
-                password,
+                password: hashedPassword,
                 email,
                 edad,
                 telefono,
                 direccion,
                 carrito: await baseCarritos.crearCarrito()
             }
-    
+
             mailer.send(newUser)
             baseUsuarios.save(newUser)
-    
+
             logger.info("Nuevo usuario registrado.")
+            res.redirect('/login')
             return
         }
         logger.info("Usuario Existente.")
+        res.redirect('/failregister')
         return
     }
 
