@@ -1,7 +1,8 @@
+// Importar los módulos necesarios
 import cluster from 'cluster';
 import os from 'os';
 import Server from './setting.js';
-import Args from '../utils/args.js'
+import Args from '../utils/args.js';
 import logger from '../utils/logger.js';
 
 export default class ClusterServer {
@@ -30,12 +31,9 @@ export default class ClusterServer {
                 peticion.start();
             }
         } else if (args.getMode() === 'dev') {
-            // Unica instancia del Servidor (Modo development)
+            // Única instancia del Servidor (Modo development)
             const peticion = new Server();
             peticion.start();
         }
     }
 }
-
-
-

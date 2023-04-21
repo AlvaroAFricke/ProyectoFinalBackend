@@ -1,9 +1,9 @@
 import CarritoService from "../service/carritoService.js";
-import ProducoService from '../service/productoService.js'
+import ProductoService from '../service/productoService.js'
 import Mailer from "../service/mensajeria/nodeMailer.js";
 
 const carritoService = new CarritoService();
-const productoService = new ProducoService();
+const productoService = new ProductoService();
 
 const mailer = new Mailer();
 
@@ -11,6 +11,7 @@ export default class Pedido {
 
     constructor() { }
 
+    // Renderiza la vista del pedido con la información del usuario y los productos en el carrito
     async renderPedido(req, res) {
         
         const usuario = req.user;
@@ -20,12 +21,9 @@ export default class Pedido {
         res.render('pedido', {usuario, productos})
     }
 
+    // Realiza la solicitud del pedido, actualiza el stock de los productos y envía correos al vendedor y al cliente
     async solicitarPedido(req, res) {
-
-        /**
-         * Enviar los mensajes a el admin y al user via mail 
-         */
-
+        
         const usuario = req.user
         const carrito = await carritoService.obtenerCarrito(usuario.carrito._id)
         const productos = carrito.productos
@@ -38,10 +36,10 @@ export default class Pedido {
 
         const userEmail = usuario.email.toString()
 
-        //Al Vendedor
+        // Enviar correo al vendedor con la solicitud del pedido
         mailer.solicitudPedido(usuario, productos);
 
-        //Al Cliente
+        // Enviar correo al cliente con el resumen del pedido
         mailer.resumenPedido(userEmail, productos);
 
         res.redirect('/api/pedido')
@@ -49,4 +47,3 @@ export default class Pedido {
     }
 
 }
-

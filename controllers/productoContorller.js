@@ -60,8 +60,6 @@ export default class ProductosRoutes {
             // Validar que los datos del cuerpo de la solicitud sean válidos
             const { nombre, descripcion, codigo, imagen, precio, stock } = req.body;
 
-            // Realizar validación de datos aquí, por ejemplo, utilizando Joi o validaciones manuales
-
             // Crear una nueva instancia del modelo Producto con los datos validados
             const nuevoProducto = {
                 nombre,

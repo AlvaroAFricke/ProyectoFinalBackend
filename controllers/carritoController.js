@@ -10,6 +10,7 @@ export default class CarritosController {
 
     constructor() { }
 
+    // Asigna un carrito al usuario
     async asignarCarrito(req, res) {
         const usuario = await userService.getById(req.user._id)
         usuario.carrito = await carrService.crearCarrito();
@@ -17,6 +18,7 @@ export default class CarritosController {
         res.redirect('/api/productos')
     }
 
+    // Obtiene los productos de un carrito y los renderiza en una vista
     async obtenerCarrito(req, res) {
         const { idCarr } = req.params;
         
@@ -26,7 +28,7 @@ export default class CarritosController {
         res.render('verCarrito', { productos: prodsCarrito });
     }
 
-
+    // Procesa la acción del usuario en el carrito (añadir o borrar producto)
     async procesarCarrito(req, res) {
         const { idCarr } = req.params;
         const { idProd } = req.params;
@@ -44,4 +46,3 @@ export default class CarritosController {
 
     }
 }
-
